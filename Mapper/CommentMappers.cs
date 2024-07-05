@@ -23,9 +23,10 @@ namespace RestfulWebApi.Mapper
         {
             return new Comment
             {
-                // Title = commentDto.Title,
                 Content = commentDto.Content,
-                UserId = userId
+                UserId = userId,
+                CreatedOn = commentDto.CreatedOn
+
             };
         }
 
@@ -33,9 +34,9 @@ namespace RestfulWebApi.Mapper
         {
             return new Comment
             {
-                // Title = commentDto.Title,
                 Content = commentDto.Content,
-                UserId = userId
+                UserId = userId,
+                CreatedOn = commentDto.CreatedOn
             };
         }
 

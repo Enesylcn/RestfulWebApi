@@ -23,6 +23,7 @@ namespace RestfulWebApi.Controllers
             _context = context;
         }
 
+        // Retrieves all users based on the given query object
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
@@ -36,6 +37,7 @@ namespace RestfulWebApi.Controllers
             return Ok(userDto);
         }
 
+        // Retrieves the user with the specified ID
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -52,6 +54,7 @@ namespace RestfulWebApi.Controllers
             return Ok(user.ToUserDto());
         }
 
+        // Creates a new user
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserRequestDto userDto)
         {
@@ -65,6 +68,7 @@ namespace RestfulWebApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = userModel.Id }, userModel.ToUserDto());
         }
 
+        // Updates the user with the specified ID
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserRequestDto updateDto)
@@ -82,6 +86,7 @@ namespace RestfulWebApi.Controllers
             return Ok(userModel.ToUserDto());
         }
 
+        // Deletes the user with the specified ID
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
@@ -98,6 +103,7 @@ namespace RestfulWebApi.Controllers
 
             return NoContent();
         }
+
 
     }
 }

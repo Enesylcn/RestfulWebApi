@@ -25,6 +25,7 @@ namespace RestfulWebApi.Controllers
             _userRepo = userRepo;
         }
 
+            // Retrieves all comments based on the given query object
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
@@ -38,6 +39,7 @@ namespace RestfulWebApi.Controllers
             return Ok(commentDto);
         }
 
+        // Retrieves the comment with the specified ID
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -54,6 +56,7 @@ namespace RestfulWebApi.Controllers
             return Ok(comment.ToCommentDto());
         }
 
+        // Creates a new comment and assigns it to the specified user
         [HttpPost]
         [Route("{id:int}")]
         public async Task<IActionResult> Create([FromRoute] int id, CreateCommentDto commentDto)
@@ -63,20 +66,18 @@ namespace RestfulWebApi.Controllers
 
             var user = await _userRepo.GetByIdAsync(id);
 
-                if (user == null)
-                {
-                    return BadRequest("user does not exists");
-                }
-                else
-                {
-                    await _userRepo.CreateAsync(user);
-                }
+            if (user == null)
+            {
+                return BadRequest("user does not exist");
+            }
 
             var commentModel = commentDto.ToCommentFromCreate(user.Id);
             await _commentRepo.CreateAsync(commentModel);
+
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }
 
+        // Updates the comment with the specified ID
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateDto)
@@ -94,6 +95,7 @@ namespace RestfulWebApi.Controllers
             return Ok(comment.ToCommentDto());
         }
 
+        // Deletes the comment with the specified ID
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
@@ -110,5 +112,6 @@ namespace RestfulWebApi.Controllers
 
             return Ok(commentModel);
         }
+
     }
 }
