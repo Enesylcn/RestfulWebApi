@@ -1,18 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using NLog;
+using NLog.Web;
 using RestfulWebApi.Data;
 using RestfulWebApi.Interfaces;
 using RestfulWebApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseNLog();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// builder.Services.AddControllers().AddNewtonsoftJson(options =>
-// {
-//     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-// });
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
@@ -23,6 +22,17 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
+
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+// // Log when the application starts
+// logger.Info("API started at {time}", DateTime.UtcNow);
+
+// // Handle application shutdown event
+// app.Lifetime.ApplicationStopping.Register(() =>
+// {
+//     logger.Info("API is shutting down at {time}", DateTime.UtcNow);
+// });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

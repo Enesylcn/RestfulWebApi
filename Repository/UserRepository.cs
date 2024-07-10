@@ -14,9 +14,12 @@ namespace RestfulWebApi.Repository
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDBContext _context;
-        public UserRepository(ApplicationDBContext context)
+        private readonly ILogger<UserRepository> _logger;
+
+        public UserRepository(ApplicationDBContext context, ILogger<UserRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<User> CreateAsync(User userModel)
@@ -32,6 +35,7 @@ namespace RestfulWebApi.Repository
 
             if (userModel == null)
             {
+                _logger.LogInformation("DeleteAsync is not worked because there is no {id}'s user", id);
                 return null;
             }
 
@@ -59,6 +63,7 @@ namespace RestfulWebApi.Repository
                 if (query.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
                     users = query.IsDecsending ? users.OrderByDescending(s => s.Name) : users.OrderBy(s => s.Name);
+                
                 }
             }
 
@@ -73,11 +78,6 @@ namespace RestfulWebApi.Repository
             return await _context.Users.Include(c => c.Comments).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<User?> GetBySymbolAsync(string name)
-        {
-            return await _context.Users.FirstOrDefaultAsync(s => s.Name == name);
-        }
-
         public Task<bool> UserExists(int id)
         {
             return _context.Users.AnyAsync(s => s.Id == id);
@@ -89,6 +89,7 @@ namespace RestfulWebApi.Repository
 
             if (existingUser == null)
             {
+                 _logger.LogInformation("{id}'s user is not updated", id);
                 return null;
             }
 
@@ -100,6 +101,7 @@ namespace RestfulWebApi.Repository
             existingUser.Adress = userDto.Adress;
 
             await _context.SaveChangesAsync();
+                 _logger.LogInformation("{id}'s user is updated", id);
 
             return existingUser;
         }

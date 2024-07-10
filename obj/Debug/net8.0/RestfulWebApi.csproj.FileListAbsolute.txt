@@ -137,3 +137,7 @@ C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\restfulwebapi\bin\Debug
 C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\restfulwebapi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\restfulwebapi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\RestfulWebApi\obj\Debug\net8.0\RestfulWebApi.sourcelink.json
+C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\RestfulWebApi\bin\Debug\net8.0\NLog.dll
+C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\RestfulWebApi\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\RestfulWebApi\bin\Debug\net8.0\NLog.Web.dll
+C:\Users\enesyalcin\Desktop\PaparaDoc\Hafta1\Restful.API\RestfulWebApi\bin\Debug\net8.0\NLog.Web.AspNetCore.dll

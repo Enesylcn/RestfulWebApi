@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using NLog.LayoutRenderers;
 using RestfulWebApi.Data;
 using RestfulWebApi.Helpers;
 using RestfulWebApi.Interfaces;
@@ -13,9 +14,11 @@ namespace RestfulWebApi.Repository
    public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDBContext _context;
-        public CommentRepository(ApplicationDBContext context)
+        private readonly ILogger<CommentRepository> _logger;
+        public CommentRepository(ApplicationDBContext context, ILogger<CommentRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<Comment> CreateAsync(Comment commentModel)
@@ -31,6 +34,7 @@ namespace RestfulWebApi.Repository
 
             if (commentModel == null)
             {
+                _logger.LogInformation("******DeleteAsync is not worked because there is no {id}'s comment", id);
                 return null;
             }
 
@@ -50,6 +54,7 @@ namespace RestfulWebApi.Repository
             if (queryObject.IsDecsending == true)
             {
                 comments = comments.OrderByDescending(c => c.CreatedOn);
+                _logger.LogInformation("******All comments are sorted in descending order");
             }
             return await comments.ToListAsync();
         }
@@ -68,10 +73,10 @@ namespace RestfulWebApi.Repository
                 return null;
             }
 
-            // existingComment.Title = commentModel.Title;
             existingComment.Content = commentModel.Content;
 
             await _context.SaveChangesAsync();
+            _logger.LogInformation("******{id}'s comment is updated", id);
 
             return existingComment;
         }
