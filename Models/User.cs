@@ -21,8 +21,8 @@ namespace RestfulWebApi.Models
 
         public string Adress { get; set; } = string.Empty;
 
-
-        public List<Comment> Comments { get; set; } = new List<Comment>();
+        // Virtual is for lazy loading default execution
+        public virtual List<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }

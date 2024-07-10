@@ -14,7 +14,9 @@ namespace RestfulWebApi.Models
         public string? Content { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int? UserId { get; set; }
-        public User? User {get; set;}
+        
+        // Virtual is for lazy loading default execution
+        public virtual User? User {get; set;}
         
     }
 }
