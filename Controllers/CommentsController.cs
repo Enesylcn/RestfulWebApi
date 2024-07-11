@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulWebApi.Dtos.Comment;
+using RestfulWebApi.Filters;
 using RestfulWebApi.Helpers;
 using RestfulWebApi.Interfaces;
 using RestfulWebApi.Mapper;
@@ -25,8 +26,9 @@ namespace RestfulWebApi.Controllers
             _userRepo = userRepo;
         }
 
-            // Retrieves all comments based on the given query object
+        // Retrieves all comments based on the given query object
         [HttpGet]
+        [FakeAuthorize]
         public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid)
