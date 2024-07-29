@@ -1,7 +1,6 @@
 # RestfulWeb.Api Project
 
 In this project, CRUD operations for the Users and Comments entities are implemented following the RESTful service culture.
-Below is the TASK heading where you can review the project according to weekly task order. ATTENTİON!
 
 ## Contents
 
@@ -24,5 +23,4 @@ Below is the TASK heading where you can review the project according to weekly t
 
 These endpoints adhere to RESTful principles, providing structured and predictable routes for interacting with user and comment data.
 
-## TASKS
-### 1-) General CRUD operations
+
