@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IkCk4v+iHcc=",
+  "dgSpecHash": "toqAjXR4soM=",
   "success": true,
-  "projectFilePath": "c:\\Users\\enesyalcin\\Desktop\\PaparaDoc\\Hafta1\\Restful.API\\RestfulWebApi\\RestfulWebApi.csproj",
+  "projectFilePath": "c:\\Users\\enesyalcin\\Desktop\\PaparaDoc\\Patika.Api\\RestfulWebApi\\RestfulWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\enesyalcin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\enesyalcin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

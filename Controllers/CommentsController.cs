@@ -20,7 +20,7 @@ namespace RestfulWebApi.Controllers
         private readonly ICommentRepository _commentRepo;
         private readonly IUserRepository _userRepo;
         public CommentsController(ICommentRepository commentRepo,
-        IUserRepository userRepo )
+        IUserRepository userRepo)
         {
             _commentRepo = commentRepo;
             _userRepo = userRepo;
@@ -28,7 +28,6 @@ namespace RestfulWebApi.Controllers
 
         // Retrieves all comments based on the given query object
         [HttpGet]
-        [FakeAuthorize]
         public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid)

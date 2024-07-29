@@ -11,7 +11,7 @@ using RestfulWebApi.Mapper;
 
 namespace RestfulWebApi.Controllers
 {
-     [Route("api/user")]
+    [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
     {

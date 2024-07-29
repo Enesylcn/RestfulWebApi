@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog;
@@ -15,28 +16,33 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Patika-Api", Version = "v1" });
 
     // Add the Authorization header input to Swagger
-    c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+    c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme
     {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
-        Scheme = "basic",
-        In = ParameterLocation.Header,
-        Description = "Basic Authorization header using the Bearer scheme. Example: \"Authorization: admin:admin\""
+        BearerFormat = "JWT",
+        Scheme = "Basic"
     });
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        new OpenApiSecurityScheme{
-            Reference = new OpenApiReference{
-                Type = ReferenceType.SecurityScheme,
-                Id = "basic"
+    {
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type=ReferenceType.SecurityScheme,
+                Id="Basic"
             }
         },
         new string[]{}
-    }});
+    }
+    });
 });
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -59,12 +65,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Patika-Api V1");
     });
 }
 
 app.UseHttpsRedirection();
-app.UseMiddleware<LoggingMiddleware>();
 
 app.UseCors(x => x
      .AllowAnyMethod()
@@ -73,6 +78,10 @@ app.UseCors(x => x
       //.WithOrigins("https://localhost:44351))
       .SetIsOriginAllowed(origin => true));
 
+app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<LoggingMiddleware>();
+
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
